@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+   blender:
+      container_name: blender
+      build: ./blender
+      ports:
+         - "222:22" 
+      volumes:
+         - ~/blenkins_data:/media
+   jenkins:
+      container_name: jenkins
+      build: ./jenkins
+      ports:
+         - "8080:8080" 
+         - "50000:50000" 
+      volumes:
+         - ~/blenkins_data:/var/jenkins_home
+      links:
+         - blender:blender
