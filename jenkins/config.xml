@@ -69,7 +69,7 @@ git commit -am &quot;Jenkins ${BUILD_NUMBER}&quot;</command>
       <tagsToPush>
         <hudson.plugins.git.GitPublisher_-TagToPush>
           <targetRepoName>origin</targetRepoName>
-          <tagName>Release $BUILD_NUMBER</tagName>
+          <tagName>v$BUILD_NUMBER</tagName>
           <tagMessage></tagMessage>
           <createTag>true</createTag>
           <updateTag>false</updateTag>
@@ -84,6 +84,11 @@ git commit -am &quot;Jenkins ${BUILD_NUMBER}&quot;</command>
     </hudson.plugins.git.GitPublisher>
   </publishers>
   <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.33">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.18">
       <strategy class="hudson.plugins.build_timeout.impl.NoActivityTimeOutStrategy">
         <timeoutSecondsString>300</timeoutSecondsString>
@@ -95,7 +100,7 @@ git commit -am &quot;Jenkins ${BUILD_NUMBER}&quot;</command>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.8"/>
     <org.jvnet.hudson.plugins.SSHBuildWrapper plugin="ssh@2.4">
       <siteName>root@blender:22</siteName>
-      <preScript>/usr/local/blender/blender -b /media/workspace/Blenkins/Map.blend -j 25 -o //release/K4v${BUILD_NUMBER}_# -P /media/workspace/Blenkins/scripts/prepare.py -- $QUAL 1
+      <preScript>/usr/local/blender/blender -b /media/workspace/Blenkins/Map.blend -o //release/K4v${BUILD_NUMBER}_# -P /media/workspace/Blenkins/scripts/prepare.py -- $QUAL 1
 mv  /media/workspace/Blenkins/release/K4v${BUILD_NUMBER}_*.avi /media/workspace/Blenkins/release/K4v${BUILD_NUMBER}.avi
 </preScript>
       <postScript></postScript>
